@@ -1,2 +1,0 @@
-"0","data_train <- read.csv(file = ""TrainsetTugas1ML.csv"", header = T, sep = "","")"
-"0","data_train"
