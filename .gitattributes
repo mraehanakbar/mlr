@@ -1,0 +1,2 @@
+*.html linguist-documentation=false
+*.R linguist-language=R
