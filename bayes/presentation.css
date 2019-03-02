@@ -1,0 +1,9 @@
+/*!
+ * A stylesheet for presentation in HTML preview and exported PDF.
+ */
+
+body {
+  font-family: "Times New Roman";
+  font-size: 12pt;
+}
+
