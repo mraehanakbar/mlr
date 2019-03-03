@@ -19,22 +19,36 @@ Build a classification system with Naive Bayes method that's determine the outpu
 
 # Solution
 
+Here lies my solution with specific built of functions.
+The main purpose is not performance and not as minimum lines as possible implementation.
+This is for a clear explanation approach.
+
 ## Retrieve the Data Train
 
 ```{r}
 data_train <- read.csv(file = "TrainsetTugas1ML.csv", header = T, sep = ",")
-
+ 
 data_train
 ```
 
 
 ## Data Categorization
 
+To make everything easier, we need to categorize our data.
+We need to categorize the data within each label.
+
 ### Income
+
+First of all, identify all labels from `income` column.
 
 ```{r}
 levels(data_train$income)
 ```
+
+There are two labels, `<=50K` and `>50K`.
+Simply, we need to rename the label so we could remember it easily.
+As for `<=50K`, we will rename it as `low`.
+Then as for `>50K`, we will rename it as `high`.
 
 ```{r}
 bayes.income.high <- c()
@@ -43,8 +57,8 @@ for (index in 1:nrow(data_train)) {
     bayes.income.high <- c(bayes.income.high, index)
   }
 }
-
-bayes.income.high
+ 
+data_train[bayes.income.high, ]
 ```
 
 ```{r}
@@ -55,15 +69,19 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.income.low
+data_train[bayes.income.low, ]
 ```
 
 
 ### Age
 
+Same as the `income` label above, we identify all labels from `age` column.
+
 ```{r}
 levels(data_train$age)
 ```
+
+The labels are quite straightforward so we don't need to rename them.
 
 ```{r}
 bayes.age.adult <- c()
@@ -73,7 +91,7 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.age.adult
+data_train[bayes.age.adult, ]
 ```
 
 ```{r}
@@ -84,7 +102,7 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.age.old
+data_train[bayes.age.old, ]
 ```
 
 ```{r}
@@ -95,14 +113,19 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.age.young
+data_train[bayes.age.young, ]
 ```
 
+
 ### Workclass
+
+Now, the `workclass` column. Identify all labels that available.
 
 ```{r}
 levels(data_train$workclass)
 ```
+
+There are several long labels. We will use the first words only.
 
 ```{r}
 bayes.workclass.local <- c()
@@ -112,7 +135,7 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.workclass.local
+data_train[bayes.workclass.local, ]
 ```
 
 ```{r}
@@ -123,7 +146,7 @@ for (index in 1:nrow(data_train)) {
   }
 }
 
-bayes.workclass.private
+data_train[bayes.workclass.private, ]
 ```
 
 ```{r}
@@ -134,14 +157,20 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.workclass.self
+data_train[bayes.workclass.self, ]
 ```
 
+
 ### Education
+
+Next is the `education` column. Identify all labels that available.
 
 ```{r}
 levels(data_train$education)
 ```
+
+It seems that we need to simplify these labels as well.
+Let use `bachelor`, `highschool`, and `college` instead.
 
 ```{r}
 bayes.education.bachelor <- c()
@@ -151,7 +180,7 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.education.bachelor
+data_train[bayes.education.bachelor, ]
 ```
 
 ```{r}
@@ -162,7 +191,7 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.education.highschool
+data_train[bayes.education.highschool, ]
 ```
 
 ```{r}
@@ -173,14 +202,19 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.education.college
+data_train[bayes.education.college, ]
 ```
 
+
 ### Marital Status
+
+Same as above, let's see all labels that available on the `marital.status` column.
 
 ```{r}
 levels(data_train$marital.status)
 ```
+
+To put it simply, we will use `divorced`, `married`, and `single` instead.
 
 ```{r}
 bayes.marital.divorced <- c()
@@ -190,7 +224,7 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.marital.divorced
+data_train[bayes.marital.divorced, ]
 ```
 
 ```{r}
@@ -201,7 +235,7 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.marital.married
+data_train[bayes.marital.married, ]
 ```
 
 ```{r}
@@ -212,14 +246,20 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.marital.single
+data_train[bayes.marital.single, ]
 ```
 
+
 ### Occupation
+
+Another column is `occupation`. Let see how many labels that available.
 
 ```{r}
 levels(data_train$occupation)
 ```
+
+We need to simplify the labels.
+Use `repair`, `managerial`, and `specialty` instead.
 
 ```{r}
 bayes.occupation.repair <- c()
@@ -229,7 +269,7 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.occupation.repair
+data_train[bayes.occupation.repair, ]
 ```
 
 ```{r}
@@ -240,7 +280,7 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.occupation.managerial
+data_train[bayes.occupation.managerial, ]
 ```
 
 ```{r}
@@ -251,14 +291,20 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.occupation.specialty
+data_train[bayes.occupation.specialty, ]
 ```
 
+
 ### Relationship
+
+Now, collects all labels on the `relationship` column.
 
 ```{r}
 levels(data_train$relationship)
 ```
+
+Let's simplify these labels.
+Use `husband`, `alone`, and `own_child` instead.
 
 ```{r}
 bayes.relationship.husband <- c()
@@ -268,7 +314,7 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.relationship.husband
+data_train[bayes.relationship.husband, ]
 ```
 
 ```{r}
@@ -279,7 +325,7 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.relationship.alone
+data_train[bayes.relationship.alone, ]
 ```
 
 ```{r}
@@ -290,14 +336,19 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.relationship.own_child
+data_train[bayes.relationship.own_child, ]
 ```
 
+
 ### Hour per Week
+
+The last one is `hours.per.week` column.
 
 ```{r}
 levels(data_train$hours.per.week)
 ```
+
+Since the labels are pretty short and straightforward, we don't need to rename these labels.
 
 ```{r}
 bayes.hpw.low <- c()
@@ -307,7 +358,7 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.hpw.low
+data_train[bayes.hpw.low, ]
 ```
 
 ```{r}
@@ -318,7 +369,7 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.hpw.many
+data_train[bayes.hpw.many, ]
 ```
 
 ```{r}
@@ -329,21 +380,334 @@ for (index in 1:nrow(data_train)) {
   }
 }
  
-bayes.hpw.normal
+data_train[bayes.hpw.normal, ]
 ```
+
 
 ## A Litte Explanation
 
-...
+The categorization above is needed since we will use probability calculation.
+Like, how many `husband` that has a `high` income?
+We use the result to a multiplication so we need to checks whether an empty set would appears.
+
+```{r}
+# Set of age with low income
+empty_set <- length(intersect(bayes.income.low, bayes.age.adult)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.age.old)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.age.young)) == 0
+ 
+# Set of age with high income
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.age.adult)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.age.old)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.age.young)) == 0
+ 
+# Set of workclass with low income
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.workclass.local)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.workclass.private)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.workclass.self)) == 0
+ 
+# Set of workclass with high income
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.workclass.local)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.workclass.private)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.workclass.self)) == 0
+ 
+# Set of education with low income
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.education.bachelor)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.education.college)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.education.highschool)) == 0
+ 
+# Set of education with high income
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.education.bachelor)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.education.college)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.education.highschool)) == 0
+ 
+# Set of marital status with low income
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.marital.divorced)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.marital.married)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.marital.single)) == 0
+ 
+# Set of marital status with high income
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.marital.divorced)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.marital.married)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.marital.single)) == 0
+ 
+# Set of occupation with low income
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.occupation.managerial)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.occupation.repair)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.occupation.specialty)) == 0
+ 
+# Set of occupation with high income
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.occupation.managerial)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.occupation.repair)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.occupation.specialty)) == 0
+ 
+# Set of relationship with low income
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.relationship.alone)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.relationship.husband)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.relationship.own_child)) == 0
+ 
+# Set of relationship with high income
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.relationship.alone)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.relationship.husband)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.relationship.own_child)) == 0
+ 
+# Set of hours per week with low income
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.hpw.low)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.hpw.many)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.low, bayes.hpw.normal)) == 0
+ 
+# Set of hours per week with high income
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.hpw.low)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.hpw.many)) == 0
+empty_set <- empty_set | length(intersect(bayes.income.high, bayes.hpw.normal)) == 0
+ 
+empty_set
+```
+
+Luckily, based on the result above, there is no empty set.
+Therefore, we don't need the Laplace smoothing at all.
+
 
 ## Bayesian Calculation Functions
 
-...
+After a long way of checks before, we are now ready to create the Bayesian calculation function.
+
+First, build all needed dependencies for calculating certain probability.
+
+```{r}
+# A function to calculates the probability of age with certain income
+probability_of_age <- function(income, age) {
+  data_income <-
+    switch (income,
+      "high" = bayes.income.high,
+      "low" = bayes.income.low
+    )
+  
+  data_age <-
+    switch (as.character(age),
+      "adult" = bayes.age.adult,
+      "old" = bayes.age.old,
+      "young" = bayes.age.young
+    )
+  
+  n_data_total <- length(data_income)
+  n_data_matched <- length(intersect(data_income, data_age))
+  
+  return(n_data_matched / n_data_total)
+}
+ 
+# A function to calculates the probability of workclass with certain income
+probability_of_workclass <- function(income, workclass) {
+  data_income <-
+    switch (income,
+      "high" = bayes.income.high,
+      "low" = bayes.income.low
+    )
+  
+  data_workclass <-
+    switch (as.character(workclass),
+      "Local-gov" = bayes.workclass.local,
+      "Private" = bayes.workclass.private,
+      "Self-emp-not-inc" = bayes.workclass.self
+    )
+  
+  n_data_total <- length(data_income)
+  n_data_matched <- length(intersect(data_income, data_workclass))
+  
+  return(n_data_matched / n_data_total)
+}
+ 
+# A function to calculates the probability of education with certain income
+probability_of_education <- function(income, education) {
+  data_income <-
+    switch (income,
+      "high" = bayes.income.high,
+      "low" = bayes.income.low
+    )
+  
+  data_education <-
+    switch (as.character(education),
+      "Bachelors" = bayes.education.bachelor,
+      "HS-grad" = bayes.education.highschool,
+      "Some-college" = bayes.education.college
+    )
+  
+  n_data_total <- length(data_income)
+  n_data_matched <- length(intersect(data_income, data_education))
+  
+  return(n_data_matched / n_data_total)
+}
+ 
+# A function to calculates the probability of marital status with certain income
+probability_of_marital <- function(income, marital) {
+  data_income <-
+    switch (income,
+      "high" = bayes.income.high,
+      "low" = bayes.income.low
+    )
+  
+  data_marital <-
+    switch (as.character(marital),
+      "Divorced" = bayes.marital.divorced,
+      "Married-civ-spouse" = bayes.marital.married,
+      "Never-married" = bayes.marital.single
+    )
+  
+  n_data_total <- length(data_income)
+  n_data_matched <- length(intersect(data_income, data_marital))
+  
+  return(n_data_matched / n_data_total)
+}
+ 
+# A function to calculates the probability of occupation with certain income
+probability_of_occupation <- function(income, occupation) {
+  data_income <-
+    switch (income,
+      "high" = bayes.income.high,
+      "low" = bayes.income.low
+    )
+  
+  data_occupation <-
+    switch (as.character(occupation),
+      "Craft-repair" = bayes.occupation.repair,
+      "Exec-managerial" = bayes.occupation.managerial,
+      "Prof-specialty" = bayes.occupation.specialty
+    )
+  
+  n_data_total <- length(data_income)
+  n_data_matched <- length(intersect(data_income, data_occupation))
+  
+  return(n_data_matched / n_data_total)
+}
+ 
+# A function to calculates the probability of relationship with certain income
+probability_of_relationship <- function(income, relationship) {
+  data_income <-
+    switch (income,
+      "high" = bayes.income.high,
+      "low" = bayes.income.low
+    )
+  
+  data_relationship <-
+    switch (as.character(relationship),
+      "Husband" = bayes.relationship.husband,
+      "Not-in-family" = bayes.relationship.alone,
+      "Own-child" = bayes.relationship.own_child
+    )
+  
+  n_data_total <- length(data_income)
+  n_data_matched <- length(intersect(data_income, data_relationship))
+  
+  return(n_data_matched / n_data_total)
+}
+ 
+# A function to calculates the probability of hours per week with certain income
+probability_of_hpw <- function(income, hpw) {
+  data_income <-
+    switch (income,
+      "high" = bayes.income.high,
+      "low" = bayes.income.low
+    )
+  
+  data_hpw <-
+    switch (as.character(hpw),
+      "low" = bayes.hpw.low,
+      "many" = bayes.hpw.many,
+      "normal" = bayes.hpw.normal
+    )
+  
+  n_data_total <- length(data_income)
+  n_data_matched <- length(intersect(data_income, data_hpw))
+  
+  return(n_data_matched / n_data_total)
+}
+```
+
+Then, build the bayesian function.
+
+```{r}
+predicts_label_with_bayes <- function(data) {
+  n_income_low <- length(bayes.income.low)
+  n_income_high <- length(bayes.income.high)
+  n_income_total <- n_income_low + n_income_high
+  
+  probability_of_low_income <- 1
+  probability_of_low_income <- probability_of_low_income * probability_of_age("low", data$age)
+  probability_of_low_income <- probability_of_low_income * probability_of_workclass("low", data$workclass)
+  probability_of_low_income <- probability_of_low_income * probability_of_education("low", data$education)
+  probability_of_low_income <- probability_of_low_income * probability_of_marital("low", data$marital.status)
+  probability_of_low_income <- probability_of_low_income * probability_of_occupation("low", data$occupation)
+  probability_of_low_income <- probability_of_low_income * probability_of_relationship("low", data$relationship)
+  probability_of_low_income <- probability_of_low_income * probability_of_hpw("low", data$hours.per.week)
+  probability_of_low_income <- probability_of_low_income * (n_income_low / n_income_total)
+  
+  probability_of_high_income <- 1
+  probability_of_high_income <- probability_of_high_income * probability_of_age("high", data$age)
+  probability_of_high_income <- probability_of_high_income * probability_of_workclass("high", data$workclass)
+  probability_of_high_income <- probability_of_high_income * probability_of_education("high", data$education)
+  probability_of_high_income <- probability_of_high_income * probability_of_marital("high", data$marital.status)
+  probability_of_high_income <- probability_of_high_income * probability_of_occupation("high", data$occupation)
+  probability_of_high_income <- probability_of_high_income * probability_of_relationship("high", data$relationship)
+  probability_of_high_income <- probability_of_high_income * probability_of_hpw("high", data$hours.per.week)
+  probability_of_high_income <- probability_of_high_income * (n_income_high / n_income_total)
+  
+  result <- if (probability_of_low_income >= probability_of_high_income) {
+    "<=50K"
+  } else {
+    ">50K"
+  }
+  
+  return(result)
+}
+```
+
+How accurate our machine learning model?
+
+```{r}
+matched <- 0
+for (index in 1:nrow(data_train)) {
+  if (data_train[index, "income"] == predicts_label_with_bayes(data_train[index, ])) {
+    matched <- matched + 1
+  }
+}
+ 
+percentage <- (matched / nrow(data_train)) * 100
+paste(as.character(percentage), "%", sep = "")
+```
+
 
 ## Execute the Data Test
 
-...
+First, we retrieve the data test.
+
+```{r}
+data_test <- read.csv(file = "TestsetTugas1ML.csv")
+ 
+data_test
+```
+
+Then, we predicts the `income` label for each row.
+
+```{r}
+for (index in 1:nrow(data_test)) {
+  predicted_label <- predicts_label_with_bayes(data_test[index, ])
+  data_test[index, "income"] <- predicted_label
+}
+ 
+data_test
+```
+
+Last, stores the result to `TebakanTugas1ML.csv`.
+
+```{r}
+write.csv(data_test, file = "TebakanTugas1ML.csv", row.names = F)
+```
+
 
 # Conclusion
 
-...
+The accuration of Bayesian machine learning approach fairly good, we at least reach $80\%$.
+This is a common approach of Naive Bayes.
+We could improve the accuration with another approach.
+Well, machine learning is about modelling and choosing the right approach.
+
